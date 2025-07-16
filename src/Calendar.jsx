@@ -4,7 +4,6 @@ import {
   CalendarIcon,
   Home,
   LineChart,
-  Music,
   Settings,
   User,
   BookOpen,
@@ -27,6 +26,7 @@ import {
   CheckCircle,
   Clock,
   Target,
+  Lightbulb,
 } from "lucide-react"
 import { useState } from "react"
 
@@ -36,7 +36,7 @@ const navigationItems = [
   { title: "Calendar", url: "/calendar", icon: CalendarIcon, isActive: true },
   { title: "Insights", url: "/insights", icon: LineChart },
   { title: "My Diary", url: "/diary", icon: BookOpen },
-  { title: "Music", url: "/music", icon: Music },
+  { title: "Care Tips", url: "/care-tips", icon: Lightbulb }, // Changed icon to Lightbulb
   { title: "Profile", url: "/profile", icon: User },
   { title: "Settings", url: "/settings", icon: Settings },
 ]
@@ -58,10 +58,7 @@ function Sidebar({ isOpen, onClose, theme }) {
       >
         {/* Header - Logo as full div */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 ">
-            <img src="dotdaylogo.png" alt="DotDay" />
-          <button onClick={onClose} className="lg:hidden p-2 ml-4 rounded-md hover:bg-gray-100">
-            <X className="h-5 w-5" />
-          </button>
+            <img src="dotdaylogo.png" alt="DotDay Logo" />
         </div>
 
         {/* Navigation Bar */}

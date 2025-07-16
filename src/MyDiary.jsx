@@ -3,7 +3,6 @@
 import {
   Home,
   LineChart,
-  Music,
   Settings,
   User,
   BookOpen,
@@ -20,6 +19,7 @@ import {
   Eye,
   EyeOff,
   BarChart3,
+  Lightbulb,
 } from "lucide-react"
 import { useState } from "react"
 
@@ -29,7 +29,7 @@ const navigationItems = [
   { title: "Calendar", url: "/calendar", icon: Calendar },
   { title: "Insights", url: "/insights", icon: LineChart },
   { title: "My Diary", url: "/diary", icon: BookOpen, isActive: true },
-  { title: "Music", url: "/music", icon: Music },
+  { title: "Care Tips", url: "/care-tips", icon: Lightbulb }, // Changed icon to Lightbulb
   { title: "Profile", url: "/profile", icon: User },
   { title: "Settings", url: "/settings", icon: Settings },
 ]
@@ -49,10 +49,7 @@ function Sidebar({ isOpen, onClose }) {
       >
         {/* Header - Logo as full div */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 ">
-            <img src="dotdaylogo.png" alt="DotDay" />
-          <button onClick={onClose} className="lg:hidden p-2 ml-4 rounded-md hover:bg-gray-100">
-            <X className="h-5 w-5" />
-          </button>
+          <img src="dotdaylogo.png" alt="DotDay Logo" />
         </div>
 
         {/* Navigation Bar */}
@@ -65,10 +62,9 @@ function Sidebar({ isOpen, onClose }) {
                   href={item.url}
                   className={`
                     flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group
-                    ${
-                      item.isActive
-                        ? "text-white shadow-lg transform scale-105"
-                        : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
+                    ${item.isActive
+                      ? "text-white shadow-lg transform scale-105"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
                     }
                   `}
                   style={item.isActive ? { backgroundColor: "#FF4D8F" } : {}}
@@ -199,11 +195,10 @@ function UnifiedDiaryInterface() {
             <div key={emoji.name} className="relative group">
               <button
                 onClick={() => handleEmojiToggle(emoji)}
-                className={`w-full p-3 rounded-xl border-2 transition-all hover:scale-110 ${
-                  selectedEmojis.some((e) => e.emoji === emoji.emoji)
+                className={`w-full p-3 rounded-xl border-2 transition-all hover:scale-110 ${selectedEmojis.some((e) => e.emoji === emoji.emoji)
                     ? "border-pink-500 bg-pink-50 shadow-lg"
                     : "border-gray-200 hover:border-pink-300 hover:bg-pink-50"
-                }`}
+                  }`}
                 title={emoji.name}
               >
                 <div className="text-2xl mb-1">{emoji.emoji}</div>
@@ -299,17 +294,15 @@ function VisualMoodSummary() {
         <div className="flex bg-gray-100 rounded-lg p-1">
           <button
             onClick={() => setViewMode("week")}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-              viewMode === "week" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
-            }`}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${viewMode === "week" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
+              }`}
           >
             This Week
           </button>
           <button
             onClick={() => setViewMode("cycle")}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-              viewMode === "cycle" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
-            }`}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${viewMode === "cycle" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600"
+              }`}
           >
             This Cycle
           </button>

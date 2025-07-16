@@ -3,7 +3,6 @@
 import {
   Home,
   LineChart,
-  Music,
   Settings,
   User,
   BookOpen,
@@ -29,7 +28,7 @@ const navigationItems = [
   { title: "Calendar", url: "/calendar", icon: Calendar },
   { title: "Insights", url: "/insights", icon: LineChart, isActive: true },
   { title: "My Diary", url: "/diary", icon: BookOpen },
-  { title: "Music", url: "/music", icon: Music },
+  { title: "Care Tips", url: "/care-tips", icon: Lightbulb }, // Changed icon to Lightbulb
   { title: "Profile", url: "/profile", icon: User },
   { title: "Settings", url: "/settings", icon: Settings },
 ]
@@ -49,10 +48,7 @@ function Sidebar({ isOpen, onClose }) {
       >
         {/* Header - Logo as full div */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 ">
-            <img src="dotdaylogo.png" alt="DotDay" />
-          <button onClick={onClose} className="lg:hidden p-2 ml-4 rounded-md hover:bg-gray-100">
-            <X className="h-5 w-5" />
-          </button>
+          <img src="dotdaylogo.png" alt="DotDay Logo" />
         </div>
 
         {/* Navigation Bar */}
@@ -65,10 +61,9 @@ function Sidebar({ isOpen, onClose }) {
                   href={item.url}
                   className={`
                     flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group
-                    ${
-                      item.isActive
-                        ? "text-white shadow-lg transform scale-105"
-                        : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
+                    ${item.isActive
+                      ? "text-white shadow-lg transform scale-105"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
                     }
                   `}
                   style={item.isActive ? { backgroundColor: "#FF4D8F" } : {}}
@@ -413,9 +408,8 @@ function CycleSyncedWellnessTips() {
           {Object.entries(wellnessTips).map(([phase, data]) => (
             <button
               key={phase}
-              className={`p-3 rounded-lg text-center transition-all ${
-                phase === currentPhase ? "text-white shadow-lg" : "text-gray-600 hover:bg-white hover:shadow-md"
-              }`}
+              className={`p-3 rounded-lg text-center transition-all ${phase === currentPhase ? "text-white shadow-lg" : "text-gray-600 hover:bg-white hover:shadow-md"
+                }`}
               style={phase === currentPhase ? { backgroundColor: data.color } : {}}
             >
               <div className="text-lg mb-1">{data.icon}</div>

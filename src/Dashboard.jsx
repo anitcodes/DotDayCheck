@@ -1,28 +1,28 @@
 "use client"
 
+import { useState } from "react"
 import {
-  Calendar,
   Home,
+  Calendar,
   LineChart,
-  Music,
-  Settings,
-  User,
   BookOpen,
+  Lightbulb,
+  User,
+  Settings,
+  Menu,
+  X,
+  Heart,
+  Mail,
+  Gift,
+  Bell,
   TrendingUp,
   Droplets,
   Moon,
   Sun,
-  Menu,
-  X,
-  Mail,
-  Heart,
   Send,
-  Bell,
   Share2,
   MessageCircle,
-  Gift,
 } from "lucide-react"
-import { useState } from "react"
 import {
   LineChart as RechartsLineChart,
   Line,
@@ -37,6 +37,8 @@ import {
   Pie,
   Cell,
 } from "recharts"
+import { Button } from "./components/ui/button" // Corrected import path
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card" // Corrected import path
 
 // Sample data for period tracking
 const cycleData = [
@@ -66,11 +68,11 @@ const symptomsData = [
 
 // Navigation items
 const navigationItems = [
-  { title: "Dashboard", url: "/dashboard", icon: Home, isActive: true },
+  { title: "Dashboard", url: "/dashboard", icon: Home },
   { title: "Calendar", url: "/calendar", icon: Calendar },
   { title: "Insights", url: "/insights", icon: LineChart },
   { title: "My Diary", url: "/diary", icon: BookOpen },
-  { title: "Music", url: "/music", icon: Music },
+  { title: "Care Tips", url: "/care-tips", icon: Lightbulb },
   { title: "Profile", url: "/profile", icon: User },
   { title: "Settings", url: "/settings", icon: Settings },
 ]
@@ -90,10 +92,7 @@ function Sidebar({ isOpen, onClose }) {
       >
         {/* Header - Logo as full div */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 ">
-            <img src="dotdaylogo.png" alt="DotDay" />
-          <button onClick={onClose} className="lg:hidden p-2 ml-4 rounded-md hover:bg-gray-100">
-            <X className="h-5 w-5" />
-          </button>
+          <img src="dotdaylogo.png" alt="DotDay Logo" />
         </div>
 
         {/* Navigation Bar */}
@@ -106,19 +105,18 @@ function Sidebar({ isOpen, onClose }) {
                   href={item.url}
                   className={`
                     flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group
-                    ${
-                      item.isActive
-                        ? "text-white shadow-lg transform scale-105"
-                        : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
+                    ${window.location.pathname === item.url
+                      ? "text-white shadow-lg transform scale-105"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
                     }
                   `}
-                  style={item.isActive ? { backgroundColor: "#FF4D8F" } : {}}
+                  style={window.location.pathname === item.url ? { backgroundColor: "#FF4D8F" } : {}}
                 >
                   <item.icon
-                    className={`h-5 w-5 ${item.isActive ? "text-white" : "text-gray-500 group-hover:text-gray-700"}`}
+                    className={`h-5 w-5 ${window.location.pathname === item.url ? "text-white" : "text-gray-500 group-hover:text-gray-700"}`}
                   />
                   <span className="font-semibold">{item.title}</span>
-                  {item.isActive && <div className="ml-auto w-2 h-2 bg-white rounded-full" />}
+                  {window.location.pathname === item.url && <div className="ml-auto w-2 h-2 bg-white rounded-full" />}
                 </a>
               ))}
             </nav>
@@ -133,18 +131,18 @@ function Sidebar({ isOpen, onClose }) {
               Partner Care
             </h3>
             <div className="space-y-2">
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all">
-                <Mail className="h-4 w-4 text-pink-500" />
+              <Button variant="ghost" className="w-full justify-start text-gray-700 hover:bg-white hover:shadow-sm">
+                <Mail className="h-4 w-4 text-pink-500 mr-3" />
                 Send Update
-              </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all">
-                <Gift className="h-4 w-4 text-purple-500" />
+              </Button>
+              <Button variant="ghost" className="w-full justify-start text-gray-700 hover:bg-white hover:shadow-sm">
+                <Gift className="h-4 w-4 text-purple-500 mr-3" />
                 Care Suggestions
-              </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all">
-                <Bell className="h-4 w-4 text-blue-500" />
+              </Button>
+              <Button variant="ghost" className="w-full justify-start text-gray-700 hover:bg-white hover:shadow-sm">
+                <Bell className="h-4 w-4 text-blue-500 mr-3" />
                 Reminders
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -156,54 +154,18 @@ function Sidebar({ isOpen, onClose }) {
               <div
                 className="h-12 w-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg cursor-pointer hover:shadow-xl transition-all duration-200 hover:scale-105"
                 style={{ backgroundColor: "#FF4D8F" }}
-                onClick={() => document.getElementById("photo-upload").click()}
+                onClick={() => document.getElementById("photo-upload-dashboard").click()}
               >
                 SJ
               </div>
-              {/* Photo upload options */}
-              <div className="absolute bottom-full left-0 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
-                <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-2 min-w-[120px]">
-                  <button
-                    onClick={() => document.getElementById("photo-upload").click()}
-                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-2"
-                  >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Upload Photo
-                  </button>
-                  <button
-                    onClick={() => {
-                      /* Handle delete photo */
-                    }}
-                    className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors flex items-center gap-2"
-                  >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                    Delete Photo
-                  </button>
-                </div>
-              </div>
               <input
-                id="photo-upload"
+                id="photo-upload-dashboard"
                 type="file"
                 accept="image/*"
                 className="hidden"
                 onChange={(e) => {
                   const file = e.target.files[0]
                   if (file) {
-                    // Handle photo upload
                     console.log("Photo selected:", file)
                   }
                 }}
@@ -222,64 +184,41 @@ function Sidebar({ isOpen, onClose }) {
 
 function StatCard({ title, value, subtitle, icon: Icon, trend, color = "#FF4D8F" }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex-1">
-          <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">{title}</h3>
-          <div className="text-3xl font-bold text-gray-900 mt-2">{value}</div>
-          <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+    <Card className="border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex-1">
+            <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">{title}</h3>
+            <div className="text-3xl font-bold text-gray-900 mt-2">{value}</div>
+            <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+          </div>
+          <div
+            className="h-16 w-16 rounded-2xl flex items-center justify-center shadow-lg"
+            style={{ backgroundColor: `${color}20` }}
+          >
+            <Icon className="h-8 w-8" style={{ color }} />
+          </div>
         </div>
-        <div
-          className="h-16 w-16 rounded-2xl flex items-center justify-center shadow-lg"
-          style={{ backgroundColor: `${color}20` }}
-        >
-          <Icon className="h-8 w-8" style={{ color }} />
-        </div>
-      </div>
-      {trend && (
-        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
-          <TrendingUp className="h-4 w-4 text-green-500" />
-          <span className="text-sm text-green-600 font-medium">{trend}</span>
-        </div>
-      )}
-    </div>
+        {trend && (
+          <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100">
+            <TrendingUp className="h-4 w-4 text-green-500" />
+            <span className="text-sm text-green-600 font-medium">{trend}</span>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }
 
 function ChartCard({ title, subtitle, children, height = "h-[350px]" }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
-      <div className="p-6 border-b border-gray-100">
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-        <p className="text-sm text-gray-600">{subtitle}</p>
-      </div>
-      <div className={`p-6 ${height}`}>{children}</div>
-    </div>
-  )
-}
-
-function Button({ children, variant = "primary", className = "", icon: Icon, ...props }) {
-  const baseClasses =
-    "h-14 px-8 rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-offset-2 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105"
-
-  const variants = {
-    primary: "text-white hover:opacity-90",
-    outline: "border-2 bg-white hover:bg-gray-50",
-    gradient: "text-white bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700",
-  }
-
-  const style =
-    variant === "primary"
-      ? { backgroundColor: "#FF4D8F", focusRingColor: "#FF4D8F" }
-      : variant === "outline"
-        ? { borderColor: "#FF4D8F", color: "#FF4D8F" }
-        : {}
-
-  return (
-    <button className={`${baseClasses} ${variants[variant]} ${className}`} style={style} {...props}>
-      {Icon && <Icon className="h-5 w-5" />}
-      {children}
-    </button>
+    <Card className="border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300">
+      <CardHeader className="p-6 border-b border-gray-100">
+        <CardTitle className="text-xl font-bold text-gray-900 mb-2">{title}</CardTitle>
+        <CardDescription className="text-sm text-gray-600">{subtitle}</CardDescription>
+      </CardHeader>
+      <CardContent className={`p-6 ${height}`}>{children}</CardContent>
+    </Card>
   )
 }
 
@@ -318,34 +257,32 @@ function PartnerEmailModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
+      <Card className="rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <CardHeader className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">Send Partner Update</h2>
+            <CardTitle className="text-2xl font-bold text-gray-900">Send Partner Update</CardTitle>
             <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100">
               <X className="h-5 w-5" />
             </button>
           </div>
-          <p className="text-gray-600 mt-2">Choose a template to send to your partner</p>
-        </div>
+          <CardDescription className="text-gray-600 mt-2">Choose a template to send to your partner</CardDescription>
+        </CardHeader>
 
-        <div className="p-6">
+        <CardContent className="p-6">
           <div className="grid gap-4 mb-6">
             {templates.map((template) => (
               <div
                 key={template.id}
-                className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                  selectedTemplate === template.id
+                className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedTemplate === template.id
                     ? "border-pink-500 bg-pink-50"
                     : "border-gray-200 hover:border-gray-300"
-                }`}
+                  }`}
                 onClick={() => setSelectedTemplate(template.id)}
               >
                 <div className="flex items-start gap-3">
                   <div
-                    className={`w-4 h-4 rounded-full mt-1 ${
-                      selectedTemplate === template.id ? "bg-pink-500" : "bg-gray-300"
-                    }`}
+                    className={`w-4 h-4 rounded-full mt-1 ${selectedTemplate === template.id ? "bg-pink-500" : "bg-gray-300"
+                      }`}
                   />
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900">{template.title}</h3>
@@ -365,8 +302,8 @@ function PartnerEmailModal({ isOpen, onClose }) {
               Send Email
             </Button>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
@@ -409,13 +346,14 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center gap-3">
-              <button
+              <Button
                 onClick={() => setEmailModalOpen(true)}
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                size="small" // Using custom size
               >
                 <Mail className="h-4 w-4" />
                 <span className="hidden sm:inline">Partner Update</span>
-              </button>
+              </Button>
               <div
                 className="px-4 py-2 rounded-xl text-sm font-semibold text-white shadow-lg"
                 style={{ backgroundColor: "#FF4D8F" }}
@@ -544,127 +482,138 @@ export default function Dashboard() {
               </ChartCard>
             </div>
           </div>
-
-          {/* Mood & Energy Trends */}
-          <div className="mb-8">
-            <ChartCard
-              title="Wellness Trends"
-              subtitle="Your mood, energy, and sleep patterns over the past month"
-              height="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={moodData}>
-                  <XAxis dataKey="week" tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} domain={[0, 10]} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="mood"
-                    stackId="1"
-                    stroke="#FF4D8F"
-                    fill="#FF4D8F"
-                    fillOpacity={0.6}
-                    name="Mood Score"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="energy"
-                    stackId="2"
-                    stroke="#8B5CF6"
-                    fill="#8B5CF6"
-                    fillOpacity={0.6}
-                    name="Energy Level"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="sleep"
-                    stackId="3"
-                    stroke="#3B82F6"
-                    fill="#3B82F6"
-                    fillOpacity={0.6}
-                    name="Sleep Hours"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </ChartCard>
-          </div>
-
-          {/* Quick Actions & Partner Features */}
-          <div className="grid gap-8 lg:grid-cols-2">
-            {/* Quick Actions */}
-            <div className="bg-white border border-gray-200 rounded-2xl shadow-sm">
-              <div className="p-6 border-b border-gray-100">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Quick Actions</h3>
-                <p className="text-gray-600">Log your daily information and track your wellness</p>
-              </div>
-              <div className="p-6">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Button icon={Droplets}>Log Period</Button>
-                  <Button variant="outline" icon={Sun}>
-                    Track Mood
-                  </Button>
-                  <Button variant="outline" icon={TrendingUp}>
-                    Add Symptoms
-                  </Button>
-                  <Button variant="gradient" icon={Calendar}>
-                    View Calendar
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Partner Care Features */}
-            <div className="bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-200 rounded-2xl shadow-sm">
-              <div className="p-6 border-b border-pink-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-                  <Heart className="h-5 w-5 text-pink-500" />
-                  Partner Care Hub
-                </h3>
-                <p className="text-gray-600">Keep your partner informed and get the support you need</p>
-              </div>
-              <div className="p-6">
-                <div className="space-y-4">
-                  <button
-                    onClick={() => setEmailModalOpen(true)}
-                    className="w-full flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all text-left"
-                  >
-                    <div className="h-12 w-12 bg-pink-100 rounded-xl flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-pink-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900">Send Cycle Update</h4>
-                      <p className="text-sm text-gray-600">Share your current status and mood</p>
-                    </div>
-                    <Send className="h-5 w-5 text-gray-400" />
-                  </button>
-
-                  <button className="w-full flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all text-left">
-                    <div className="h-12 w-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <Gift className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900">Care Suggestions</h4>
-                      <p className="text-sm text-gray-600">Get personalized care tips for your partner</p>
-                    </div>
-                    <MessageCircle className="h-5 w-5 text-gray-400" />
-                  </button>
-
-                  <button className="w-full flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-all text-left">
-                    <div className="h-12 w-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <Bell className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900">Smart Reminders</h4>
-                      <p className="text-sm text-gray-600">Set up automatic partner notifications</p>
-                    </div>
-                    <Share2 className="h-5 w-5 text-gray-400" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </main>
+
+        {/* Mood & Energy Trends */}
+        <div className="mb-8">
+          <ChartCard
+            title="Wellness Trends"
+            subtitle="Your mood, energy, and sleep patterns over the past month"
+            height="h-[300px]"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={moodData}>
+                <XAxis dataKey="week" tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} domain={[0, 10]} />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+                <Area
+                  type="monotone"
+                  dataKey="mood"
+                  stackId="1"
+                  stroke="#FF4D8F"
+                  fill="#FF4D8F"
+                  fillOpacity={0.6}
+                  name="Mood Score"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="energy"
+                  stackId="2"
+                  stroke="#8B5CF6"
+                  fill="#8B5CF6"
+                  fillOpacity={0.6}
+                  name="Energy Level"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="sleep"
+                  stackId="3"
+                  stroke="#3B82F6"
+                  fill="#3B82F6"
+                  fillOpacity={0.6}
+                  name="Sleep Hours"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </ChartCard>
+        </div>
+
+        {/* Quick Actions & Partner Features */}
+        <div className="grid gap-8 lg:grid-cols-2">
+          {/* Quick Actions */}
+          <Card className="border-gray-200 bg-white shadow-sm">
+            <CardHeader className="p-6 border-b border-gray-100">
+              <CardTitle className="text-xl font-bold text-gray-900 mb-2">Quick Actions</CardTitle>
+              <CardDescription className="text-gray-600">
+                Log your daily information and track your wellness
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Button icon={Droplets}>Log Period</Button>
+                <Button variant="outline" icon={Sun}>
+                  Track Mood
+                </Button>
+                <Button variant="outline" icon={TrendingUp}>
+                  Add Symptoms
+                </Button>
+                <Button variant="gradient" icon={Calendar}>
+                  View Calendar
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Partner Care Features */}
+          <Card className="bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-200 shadow-sm">
+            <CardHeader className="p-6 border-b border-pink-200">
+              <CardTitle className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                <Heart className="h-5 w-5 text-pink-500" />
+                Partner Care Hub
+              </CardTitle>
+              <CardDescription className="text-gray-600">
+                Keep your partner informed and get the support you need
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <Button
+                  variant="ghost"
+                  onClick={() => setEmailModalOpen(true)}
+                  className="w-full justify-start p-4 bg-white rounded-xl hover:shadow-md transition-all text-left"
+                >
+                  <div className="h-12 w-12 bg-pink-100 rounded-xl flex items-center justify-center mr-4">
+                    <Mail className="h-6 w-6 text-pink-600" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <h4 className="font-semibold text-gray-900">Send Cycle Update</h4>
+                    <p className="text-sm text-gray-600">Share your current status and mood</p>
+                  </div>
+                  <Send className="h-5 w-5 text-gray-400" />
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start p-4 bg-white rounded-xl hover:shadow-md transition-all text-left"
+                >
+                  <div className="h-12 w-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4">
+                    <Gift className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <h4 className="font-semibold text-gray-900">Care Suggestions</h4>
+                    <p className="text-sm text-gray-600">Get personalized care tips for your partner</p>
+                  </div>
+                  <MessageCircle className="h-5 w-5 text-gray-400" />
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start p-4 bg-white rounded-xl hover:shadow-md transition-all text-left"
+                >
+                  <div className="h-12 w-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4">
+                    <Bell className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <h4 className="font-semibold text-gray-900">Smart Reminders</h4>
+                    <p className="text-sm text-gray-600">Set up automatic partner notifications</p>
+                  </div>
+                  <Share2 className="h-5 w-5 text-gray-400" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       <PartnerEmailModal isOpen={emailModalOpen} onClose={() => setEmailModalOpen(false)} />
