@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^11.10.0",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -30,5 +31,17 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.3.5",
     "vite": "^7.0.4"
-  }
+  },
+  "description": "A period-tracking app",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anitcodes/DotDayCheck.git"
+  },
+  "author": "Neha Shrestha, Prejina Dwa, Anit Shrestha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anitcodes/DotDayCheck/issues"
+  },
+  "homepage": "https://github.com/anitcodes/DotDayCheck#readme"
 }

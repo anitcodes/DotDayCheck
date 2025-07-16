@@ -2,9 +2,30 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { signInWithGoogle, signInWithFacebook } from "../firebase/auth";
 
 export default function SignUp() {
   const navigate = useNavigate();
+  
+  const handleGoogleSignup = async () => {
+    try {
+      await signInWithGoogle();
+      alert("Signed in with Google!");
+      navigate("/dashboard");
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const handleFacebookSignup = async () => {
+    try {
+      await signInWithFacebook();
+      alert("Signed in with Facebook!");
+      navigate("/dashboard");
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#ffb2d4] to-[#FF157A] p-6">
@@ -21,11 +42,11 @@ export default function SignUp() {
         </div>
 
         <div className="w-full space-y-4">
-          <button className="flex items-center justify-center gap-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition w-full">
+          <button onClick={handleGoogleSignup} className="flex items-center justify-center gap-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition w-full">
             <FcGoogle size={20} />
             <span className="text-sm font-medium text-gray-700">Continue with Google</span>
           </button>
-          <button className="flex items-center justify-center gap-2 bg-[#3b5998] text-white py-3 rounded-lg hover:bg-[#2d4373] transition w-full">
+          <button onClick={handleFacebookSignup} className="flex items-center justify-center gap-2 bg-[#3b5998] text-white py-3 rounded-lg hover:bg-[#2d4373] transition w-full">
             <FaFacebookF size={18} />
             <span className="text-sm font-medium">Continue with Facebook</span>
           </button>

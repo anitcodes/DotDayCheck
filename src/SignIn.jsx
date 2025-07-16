@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { signInWithEmail } from "../firebase/auth"; 
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmail(email, password);
+      alert("Login successful!");
+      navigate("/dashboard"); // or your homepage
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#ffb2d4] to-[#FF157A] p-6">
       <div className="bg-white shadow-xl p-10 w-full max-w-md min-h-[600px] flex flex-col items-center justify-start text-center space-y-6">
