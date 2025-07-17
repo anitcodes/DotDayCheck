@@ -1,3 +1,5 @@
+"use client"
+
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

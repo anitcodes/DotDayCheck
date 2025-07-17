@@ -1,5 +1,3 @@
-"use client"
-
 import {
   Home,
   LineChart,
@@ -22,121 +20,7 @@ import {
 import { useState } from "react"
 import { XAxis, YAxis, ResponsiveContainer, BarChart, Bar, Tooltip, Legend } from "recharts"
 
-// Navigation items
-const navigationItems = [
-  { title: "Dashboard", url: "/dashboard", icon: Home },
-  { title: "Calendar", url: "/calendar", icon: Calendar },
-  { title: "Insights", url: "/insights", icon: LineChart, isActive: true },
-  { title: "My Diary", url: "/diary", icon: BookOpen },
-  { title: "Care Tips", url: "/care-tips", icon: Lightbulb }, // Changed icon to Lightbulb
-  { title: "Profile", url: "/profile", icon: User },
-  { title: "Settings", url: "/settings", icon: Settings },
-]
-
-function Sidebar({ isOpen, onClose }) {
-  return (
-    <>
-      {/* Mobile overlay */}
-      {isOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={onClose} />}
-
-      {/* Sidebar */}
-      <div
-        className={`
-        fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out shadow-lg
-        ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-      `}
-      >
-        {/* Header - Logo as full div */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 ">
-          <img src="dotdaylogo.png" alt="DotDay Logo" />
-        </div>
-
-        {/* Navigation Bar */}
-        <div className="p-6">
-          <div className="bg-gray-50 rounded-xl p-4">
-            <nav className="space-y-2">
-              {navigationItems.map((item) => (
-                <a
-                  key={item.title}
-                  href={item.url}
-                  className={`
-                    flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group
-                    ${item.isActive
-                      ? "text-white shadow-lg transform scale-105"
-                      : "text-gray-700 hover:text-gray-900 hover:bg-white hover:shadow-md"
-                    }
-                  `}
-                  style={item.isActive ? { backgroundColor: "#FF4D8F" } : {}}
-                >
-                  <item.icon
-                    className={`h-5 w-5 ${item.isActive ? "text-white" : "text-gray-500 group-hover:text-gray-700"}`}
-                  />
-                  <span className="font-semibold">{item.title}</span>
-                  {item.isActive && <div className="ml-auto w-2 h-2 bg-white rounded-full" />}
-                </a>
-              ))}
-            </nav>
-          </div>
-        </div>
-
-        {/* Partner Features */}
-        <div className="px-6 mb-6">
-          <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl p-4 border border-pink-200">
-            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-              <Heart className="h-4 w-4 text-pink-500" />
-              Partner Care
-            </h3>
-            <div className="space-y-2">
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all">
-                <Mail className="h-4 w-4 text-pink-500" />
-                Send Update
-              </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all">
-                <Gift className="h-4 w-4 text-purple-500" />
-                Care Suggestions
-              </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all">
-                <Bell className="h-4 w-4 text-blue-500" />
-                Reminders
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 bg-gray-50">
-          <div className="flex items-center gap-4">
-            <div className="relative group">
-              <div
-                className="h-12 w-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg cursor-pointer hover:shadow-xl transition-all duration-200 hover:scale-105"
-                style={{ backgroundColor: "#FF4D8F" }}
-                onClick={() => document.getElementById("photo-upload-insights").click()}
-              >
-                SJ
-              </div>
-              <input
-                id="photo-upload-insights"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files[0]
-                  if (file) {
-                    console.log("Photo selected:", file)
-                  }
-                }}
-              />
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-bold text-gray-900">Sarah Johnson</p>
-              <p className="text-xs text-gray-500">Premium Member</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
+// Removed Sidebar({ isOpen, onClose }) and navigationItems definition
 
 function SymptomPatternAnalysis() {
   const symptomTrends = [
@@ -563,41 +447,12 @@ function PartnerAwareness() {
 }
 
 export default function Insights() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
+  // No sidebar state or rendering here; handled by MainAppLayout
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-purple-50">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      <div className="flex-1 lg:ml-0">
-        {/* Header */}
-        <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-30">
-          <div className="flex h-20 items-center gap-4 px-6">
-            <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-3 rounded-xl hover:bg-gray-100">
-              <Menu className="h-6 w-6" />
-            </button>
-
-            <div className="flex-1">
-              <h1 className="text-2xl font-bold text-gray-900">Personalized Insights 🧠</h1>
-              <p className="text-gray-600">Understanding your patterns and supporting your wellness journey</p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="px-4 py-2 rounded-xl text-sm font-semibold text-white shadow-lg bg-gradient-to-r from-pink-500 to-purple-600">
-                Insights Active
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main className="p-6">
-          <div className="space-y-8">
-            <SymptomPatternAnalysis />
-            <CycleSyncedWellnessTips />
-            <PartnerAwareness />
-          </div>
-        </main>
-      </div>
+    <div className="space-y-8">
+      <SymptomPatternAnalysis />
+      <CycleSyncedWellnessTips />
+      <PartnerAwareness />
     </div>
   )
 }

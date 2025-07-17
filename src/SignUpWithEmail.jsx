@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import { registerWithEmail } from "./firebase/auth";
 import { getAuth, updateProfile } from "firebase/auth"; 
