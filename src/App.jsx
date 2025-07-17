@@ -1,35 +1,37 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Heropage from "./Heropage"
+import Dashboard from "./Dashboard"
+import Calendar from "./Calendar"
+import Insights from "./Insights"
+import MyDiary from "./MyDiary"
+import CareTips from "./CareTips"
+import Profile from "./Profile"
+import Settings from "./Settings"
+import SignIn from "./SignIn"
+import SignUp from "./SignUp"
+import SignUpWithEmail from "./SignUpWithEmail"
+import UserOnboarding from "./UserOnboarding"
 
-import SignUp from "./SignUp";
-import SignUpWithEmail from "./SignUpWithEmail";
-import SignIn from "./SignIn";
-import Dashboard from "./Dashboard.jsx";
-import Calender from "./Calendar.jsx";
-
-export default function App() {
+function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signup-email" element={<SignUpWithEmail />} />
+        { <Route path="/" element={<Heropage />} />  }
+       {/* <Route path="/" element={<Dashboard />} /> */}
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/insights" element={<Insights />} />
+        <Route path="/diary" element={<MyDiary />} />
+        <Route path="/care-tips" element={<CareTips />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/calender" element={<Calender />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signupwithemail" element={<SignUpWithEmail />} />
+        <Route path="/onboarding" element={<UserOnboarding />} />
       </Routes>
     </Router>
-  );
+  )
 }
 
-// src/App.jsx
-
-
-
-// export default function App() {
-//   return (
-//     <div>
-//       <Dashboard />
-//     </div>
-//   );
-// }
-
+export default App

@@ -1,13 +1,19 @@
-import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { signInWithGoogle, signInWithFacebook } from "../firebase/auth";
+import { signInWithGoogle, signInWithFacebook } from "./firebase/auth";
+import { Button } from "./components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card"
+import { Mail } from "lucide-react"
 
 export default function SignUp() {
   const navigate = useNavigate();
+
+  const handleSignUpWithEmail = () => {
+    navigate("/signupwithemail")
+  }
   
-  const handleGoogleSignup = async () => {
+  const handleGoogleSignUp = async () => {
     try {
       await signInWithGoogle();
       alert("Signed in with Google!");
@@ -17,7 +23,7 @@ export default function SignUp() {
     }
   };
 
-  const handleFacebookSignup = async () => {
+  const handleFacebookSignUp = async () => {
     try {
       await signInWithFacebook();
       alert("Signed in with Facebook!");
@@ -28,49 +34,64 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#ffb2d4] to-[#FF157A] p-6">
-      <div className="bg-white shadow-xl p-10 w-full max-w-md min-h-[600px] flex flex-col items-center justify-start text-center space-y-6">
-        <img
-          src="/logo.png"
-          alt="App Logo"
-          style={{ height: "100px", objectFit: "contain" }}
-        />
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+      <Card className="w-full max-w-md rounded-2xl shadow-xl">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-center text-gray-900">Join DotDay</CardTitle>
+        </CardHeader>
+        <CardContent className="p-6 space-y-6">
+          <p className="text-center text-gray-600">Create your account to start tracking your cycle.</p>
 
-        <div>
-          <h2 className="text-2xl font-bold text-[#FF157A]">Let's Get Started!</h2>
-          <p className="text-sm text-gray-500">Create your account</p>
-        </div>
-
-        <div className="w-full space-y-4">
-          <button onClick={handleGoogleSignup} className="flex items-center justify-center gap-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-100 transition w-full">
-            <FcGoogle size={20} />
-            <span className="text-sm font-medium text-gray-700">Continue with Google</span>
-          </button>
-          <button onClick={handleFacebookSignup} className="flex items-center justify-center gap-2 bg-[#3b5998] text-white py-3 rounded-lg hover:bg-[#2d4373] transition w-full">
-            <FaFacebookF size={18} />
-            <span className="text-sm font-medium">Continue with Facebook</span>
-          </button>
-        </div>
-
-        <div className="text-sm text-gray-400">or</div>
-
-        <button
-          onClick={() => navigate("/signup-email")}
-          className="w-full bg-[#FF157A] text-white font-semibold rounded-lg py-3 hover:bg-pink-600 transition"
-        >
-          Sign up with Email
-        </button>
-
-        <p className="text-sm text-gray-600">
-          Already have an account?{" "}
-          <button
-            onClick={() => navigate("/signin")}
-            className="text-[#FF157A] underline hover:opacity-80 bg-transparent border-0 p-0 cursor-pointer"
+          {/* Sign Up with Email */}
+          <Button
+            onClick={handleSignUpWithEmail}
+            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105"
           >
-            Sign in
-          </button>
-        </p>
-      </div>
+            <Mail className="w-5 h-5 mr-2" />
+            Sign Up with Email
+          </Button>
+
+          {/* Divider */}
+          <div className="relative flex items-center justify-center">
+            {/* <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-300" />
+            </div> */}
+            <div className="relative px-4 text-sm text-black">Or continue with</div>
+          </div>
+
+          {/* Social Buttons */}
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              variant="outline"
+              className="py-3 rounded-xl flex items-center justify-center gap-2 bg-transparent"
+              onClick={handleGoogleSignUp}
+            >
+              <FcGoogle className="h-5 w-5" />
+              Google
+            </Button>
+            <Button
+              variant="outline"
+              className="py-3 rounded-xl flex items-center justify-center gap-2 bg-transparent"
+              onClick={handleFacebookSignUp}
+            >
+              <FaFacebookF className="h-5 w-5 text-[#3b5998]" />
+              Facebook
+            </Button>
+          </div>
+
+          {/* Sign In Redirect */}
+          <div className="text-center text-sm text-gray-600 mt-6">
+            Already have an account?{" "}
+            <a
+              href="#"
+              onClick={() => navigate("/signin")}
+              className="text-pink-600 hover:underline font-medium"
+            >
+              Sign In
+            </a>
+          </div>
+        </CardContent>
+      </Card>
     </div>
-  );
+  )
 }
