@@ -78,15 +78,15 @@ export default function SignIn() {
             </Button>
           </form>
           <div className="text-center text-sm text-gray-600">
-            Don't have an account?{" "}
-            <a href="#" onClick={() => navigate("/signup")} className="text-pink-600 hover:underline font-medium">
+            {/* Don't have an account? */}
+            <button type="button" onClick={() => navigate("/signup")} className="text-pink-600 hover:underline font-medium bg-transparent border-none p-0 cursor-pointer">
               Sign Up
-            </a>
+            </button>
           </div>
           <div className="text-center text-sm text-gray-600">
-            <a href="#" className="text-gray-500 hover:underline">
+            <button type="button" className="text-gray-500 hover:underline bg-transparent border-none p-0 cursor-pointer">
               Forgot password?
-            </a>
+            </button>
           </div>
         </CardContent>
       </Card>

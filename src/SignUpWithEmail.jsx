@@ -115,10 +115,9 @@ export default function SignUpWithEmail() {
             </Button>
           </form>
           <div className="text-center text-sm text-gray-600">
-            Already have an account?{" "}
-            <a href="#" onClick={() => navigate("/signin")} className="text-pink-600 hover:underline font-medium">
-              Sign In
-            </a>
+            <button type="button" onClick={() => navigate("/signin")} className="text-pink-600 hover:underline font-medium bg-transparent border-none p-0 cursor-pointer">
+              Already have an account? Sign In
+            </button>
           </div>
           <div className="text-center text-sm text-gray-600">
             <a
